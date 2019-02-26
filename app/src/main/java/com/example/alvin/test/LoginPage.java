@@ -84,16 +84,23 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         Point parentDimensions = new Point();
         display.getSize(parentDimensions);
 
-        Double hPos = input_username.getHeight()+display.getHeight()*0.9;
+//        Double hPos = input_username.getHeight()+display.getHeight()*0.9;
 
         input_username.setText(parentDimensions.x + " " + parentDimensions.y);
 
+        //manually setting the y coords of the components based off the phone dimensions
+        // when clearAnimation() is called the components snap back to where they were before the animation
+        // so this must be done to put them back where i want them
         input_username.setY(Math.round(input_username.getY()+(0.1 *parentDimensions.y)));
         input_password.setY(Math.round(input_password.getY()+(0.1 *parentDimensions.y)));
         rectangle_userinput.setY(Math.round(rectangle_userinput.getY()+(0.1 *parentDimensions.y)));
         rectangle_passinput.setY(Math.round(rectangle_passinput.getY()+(0.1 *parentDimensions.y)));
         login.setY(Math.round(login.getY()+(0.1 *parentDimensions.y)));
 
+        //after the animation ends, the components havent actually moved anywhere. Only the image has moved.
+        //this can be tested by tapping on the previous locations of the EditText and Button components.
+        //clearAnimation() must be called in order for the components image to be ontop of the actual component.
+        //i dont understand how this is even possible.
         input_password.clearAnimation();
         input_username.clearAnimation();
         rectangle_passinput.clearAnimation();
